@@ -22,7 +22,7 @@ let rec evalplayers team =
     | Defensive(dl) ->
         match dl with 
         | [] -> ""
-        | d::dl -> (evalplayer d) + evalplayers(Defensive(dl))
+        | d::dl -> (evalplayer d) + evalplayers(Defensive(dl)) 
         
 
 
