@@ -5,9 +5,9 @@ open Parser
 
 [<EntryPoint>]
 let main args =
-    // let file = args[0]
-    // let text = IO.File.ReadAllText file
-    let text = args[0]
+    let file = args[0]
+    let text = IO.File.ReadAllText file
+    //let text = args[0]
     match parse text with
     | Some ast ->
         //printfn "%A" ast

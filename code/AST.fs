@@ -2,6 +2,10 @@ module AST
 
 type Coordinate = {x: int; y: int}
 
+type HasDisc = 
+| True
+| False
+
 type Force = 
 | Home
 | Away
@@ -9,7 +13,7 @@ type Force =
 
 type Player = 
 //cordinate of where is; if has disc
-| Offense of Coordinate * bool
+| Offense of Coordinate * HasDisc
 | Defense of Coordinate 
 
 type Team = 
@@ -19,7 +23,7 @@ type Team =
 type Plays = {prog: string}
 
 
-type Grass = Team list
+type Field = Team list
 
-let FIELD_WIDTH = 1220
-let FIELD_LENGTH = 420
+let FIELD_WIDTH = 1100
+let FIELD_LENGTH = 400
