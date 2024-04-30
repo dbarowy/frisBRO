@@ -52,7 +52,7 @@
 
 % Edit below as instructed
 
-\title{Frisbee Language Specification} % Replace SnappyLanguageName with your project's name
+\title{Frisbee Play Language Specification} % Replace SnappyLanguageName with your project's name
 
 \author{Skylar Yarter \and Jocelyn Bliven} % Replace these with real partner names.
 
@@ -62,27 +62,126 @@
 
 \subsection*{Introduction}
 
-\todo[inline]{Delete this TODO and replace with 2+ paragraphs.}
+\todo[inline]{This language helps a user decide what ultimate frisbee play to call in a given situation. When you are in the heat of the game, it can be hard to figure out what play to call. No longer! This programming language will help you decide what plays to call at any given moment based on where the players, disc, and the defensive force are. 
+~\\
+~\\
+Ultimate frisbee requires “reading” the field to figure out what play is best to call and this reading of the field requires evaluating multiple parameters. A language that allows the user to read the field more easily and without human emotion and bias swaying the result would allow more appropriate plays to be called. Many of the evaluations being made by the players or coaches when choosing a play are quantitative (ie. where are the players and disc on the field, which way is the defense forcing). These quantitative parameters fit well within the scope of a programming language and can be compared better by a computer than a person standing on the field with a skewed perspective.
+}
 
 \subsection*{Design Principles}
 
-\todo[inline]{Delete this TODO and replace with 1+ paragraphs.}
+\todo[inline]{We aim to create an easily readable, quick-to-type programming language so it can be used by frisbee coaches and players, who may not be familiar with general programming practices. Therefore, we prioritize simplicity in the syntax of our language so that it is easy to learn and to read. We do not want to overcomplicate the language by adding too many elements or rules, as that would hinder our user base. The language need not be object-oriented or follow a complex model as it is fairly basic, which allows for the easy-to-learn syntax.}
 
 \subsection*{Examples}
 
-\todo[inline]{Delete this TODO and replace with 3+ examples and accompanying descriptions.}
+\todo[inline]{
+    Example 1: Vertical Stack
+    ~\\
+    Field = {Standard}
+    ~\\
+    Offense = {(40,15), (40,35), (60,20), (65,20), (70,20), (75,20), (80,20)}
+    ~\\
+    Defense = {(41,16), (42,33), (60,19), (65,19), (70,19), (75,19), (80,19)}
+    ~\\
+    Disc = {Player:1}
+    ~\\
+    Force = {Home}
+    ~\\
+    Plays = {Library}
+    ~\\
+    ~\\
+    Example 2: Zone
+    ~\\
+    Field = {Standard}
+    ~\\
+    Offense = {(40,0), (45,25), (35,15), (50,3), (70,35), (45,8), (45,20)}
+    ~\\
+    Defense = {Zone}
+    ~\\
+    Disc = {Player:1}
+    ~\\
+    Force = {Home}
+    ~\\
+    Plays = {Library}''
+    ~\\
+    ~\\
+    Example 3: Endzone
+    ~\\
+    Field = {Standard}
+    ~\\
+    Offense = {(80,25), (95,20), (80,15), (96,20), (97,20), (98,20), (99,20)}
+    ~\\
+    Defense = {(81,25), (96,20), (81,15), (97,20), (98,20), (99,20), (100,20)}
+    ~\\
+    Disc = {Player:1}
+    ~\\
+    Force = {Away}
+    ~\\
+    Plays = (Squeeze: if (Player 1 has disc) AND (Player 1 is at (80,25)) AND (Force == Away) then “run squeeze”)
+    ~\\
+
+}
 
 \subsection*{Language Concepts}
 
-\todo[inline]{Delete this TODO and replace with 1+ paragraphs.}
+\todo[inline]{A user needs to understand that each offensive and defensive player is a unique object which is essentially just a coordinate. The primitives of this language are coordinates which ultimately determine where the players and the disc are. The multiple players are combined into a team. Other primitives are the defensive force which is basically just a string. Adding the force and where the disc is allows the user to fine-tune what play they should call. The field is a combining form which takes all the teams, disc, and force and places them in the correct position. Additionally, the user should understand how the field is set up and how to visualize it.}
+
+Field Visualization: 
+\begin{center}
+    \includegraphics[width=.5\textwidth]{images/FieldVisualization.jpg}
+\end{center}
 
 \subsection*{Formal Syntax}
 
-\todo[inline]{Delete this TODO and replace with BNF.}
+\todo[inline]{ 
+
+    $<$expr$>$		::= $<$field$>$$<$plays$>$ $|$ $<$field$>$
+    ~\\
+    $<$field$>$		::=$<$offense$>$$<$defense$>$$<$force$>$
+    ~\\
+    $<$offense$>$	::= $<$oplayer$>$$<$offense$>$ $|$ $<$oplayer$>$
+    ~\\
+    $<$defense$>$	::= $<$dplayer$>$$<$defense$>$ $|$ $<$dplayer$>$  $|$  zone $|$ person
+    ~\\
+    $<$disc$>$  	::= true $|$ false
+    ~\\
+    $<$oplayer$>$ 	::= $<$coordinate$>$$<$disc$>$
+    ~\\
+    $<$dplayer$>$	::= $<$coordinate$>$
+    ~\\
+    $<$force$>$ 	::= home $|$ away $|$ flat
+    ~\\
+    $<$plays$>$ 	::= $<$play$>$ $|$ $<$play$>$$<$plays$>$ $|$ Library
+    ~\\
+    $<$play$>$ 		::= string 
+    ~\\
+    $<$coordinate$>$::= ($<$n$>$,$<$n$>$)
+    ~\\
+    $<$n$>$		    ::= $<$digit$>$n $|$ n  where n is any positive integer
+
+}
 
 \subsection*{Semantics}
 
-\todo[inline]{Delete this TODO and replace with as much text as is needed.}
+\todo[inline]{The primitives in this language are coordinates, defense types, booleans, and the force. Plays are programs passed in or accessed in a Library as strings.
+~\\
+~\\
+The combining forms in this language are players, which are made from coordinates and booleans determining if they have the disc; teams, which are made of lists of players; and a field, which is made from combining teams and the force on the field.
+~\\
+~\\
+The programs in our language can optionally read in a file containing a team’s plays. The plays would be written in with booleans to indicate when to use them (e.g., “if force=home, then angled stack”). If the user does not provide a file of plays, the program will use the default plays that we provide.
+~\\
+~\\
+In its simplest state, the output of a program will be a frisbee field with the players and disc at the correct coordinates. For our final version of the language, the output of a program will be a picture of the field with a list of suggested plays, either from the library or from the user’s inputted plays.
+
+}
+Example Output: Suggested Plays: Angled Stack, Windmill
+
+\begin{center}
+    \includegraphics[width=.8\textwidth]{images/ExampleOutput.jpg}
+\end{center}
+
+
 
 % DO NOT DELETE ANYTHING BELOW THIS LINE
 \end{document}
