@@ -134,7 +134,28 @@ Field Visualization:
 \subsection*{Formal Syntax}
 
 \todo[inline]{ 
-
+Current syntax:
+~\\
+    $<$expr$>$		::=$<$offense$>$$<$defense$>$
+    ~\\
+    $<$offense$>$	::= $<$oplayer$>$$<$offense$>$ $|$ $<$oplayer$>$
+    ~\\
+    $<$defense$>$	::= $<$dplayer$>$$<$defense$>$ $|$ $<$dplayer$>$
+    ~\\
+    
+    $<$oplayer$>$ 	::= $<$coordinate$>$$<$disc$>$
+    ~\\
+    $<$dplayer$>$	::= $<$coordinate$>$
+    ~\\
+    $<$disc$>$  	::= true $|$ false
+    ~\\
+    $<$coordinate$>$::= ($<$digit$>$,$<$digit$>$)
+    ~\\
+    $<$digit$>$		    ::= $<$digit$>$n $|$ n  where n is any positive integer
+~\\
+~\\
+Future syntax: 
+~\\
     $<$expr$>$		::= $<$field$>$$<$plays$>$ $|$ $<$field$>$
     ~\\
     $<$field$>$		::=$<$offense$>$$<$defense$>$$<$force$>$
@@ -155,9 +176,9 @@ Field Visualization:
     ~\\
     $<$play$>$ 		::= string 
     ~\\
-    $<$coordinate$>$::= ($<$n$>$,$<$n$>$)
+    $<$coordinate$>$::= ($<$digit$>$,$<$digit$>$)
     ~\\
-    $<$n$>$		    ::= $<$digit$>$n $|$ n  where n is any positive integer
+    $<$digit$>$		    ::= $<$digit$>$n $|$ n  where n is any positive integer
 
 }
 

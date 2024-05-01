@@ -6,7 +6,7 @@ open Parser
 [<EntryPoint>]
 let main args =
     if args.Length < 1 then 
-        printfn "usage is dotnet run testcode.txt > test.svg"
+        printfn "Usage is: dotnet run testcode.txt > test.svg"
         1
     else 
         let file = args[0]

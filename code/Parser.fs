@@ -5,12 +5,15 @@ open Combinator
 open System
 
 (*
- *   <expr>     ::= <feild><offense><defense><disc><force><plays>
- *   <offense>  ::= <player><offense>
- *   <defense>  ::= <player><defense>
- *   <disc>     ::= <player>
- *   <defense>  ::= <player><defense>
- *   <plays>    ::= <play> | <play><plays>
+ *   <expr>     ::= <offense><defense>
+ *   <offense>  ::= <oplayer><offense>
+ *   <defense>  ::= <dplayer><defense>
+ *  <oplayer> 	::= <coordinate><disc>
+ *  <dplayer>	::= <coordinate>
+ *   <disc>     ::= true | false
+ *  <coordinate>::= (<digit>,<digit>)
+ *      <n>		::= <digit>n | n where n is any positive integer
+
  *)
 
 let num = pmany1 pdigit |>> (fun ds -> stringify ds |> int)
