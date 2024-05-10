@@ -14,16 +14,16 @@ type Force =
 type Player = 
 //cordinate of where is; if has disc
 | Offense of Coordinate * HasDisc
-| Defense of Coordinate 
+| Defense of Coordinate * Force
 
 type Team = 
 | Offensive of Player list
 | Defensive of Player list
 
-type Plays = {prog: string}
+// type Plays = {prog: string}
 
 
-type Field = Team list
+type Field = Team list 
 
 let FIELD_WIDTH = 1100
-let FIELD_LENGTH = 400
+let FIELD_LENGTH = 500
