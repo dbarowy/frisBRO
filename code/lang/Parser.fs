@@ -16,7 +16,7 @@ open System
 
  *)
 
-let num = pmany1 pdigit |>> (fun ds -> stringify ds |> int) 
+let num = pmany1 pdigit |>> (fun ds -> stringify ds |> int)
 
 let firstcoord = pbetween (pchar '(') num (pchar ',')
 
