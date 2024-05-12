@@ -42,17 +42,22 @@ let oplayer = pseq coord disc (fun (coord, disc) -> Offense(coord, disc)) //<!> 
 let oteam = pbetween
                 (pstr "Offense = {")
                 (pmany1 oplayer |>> (fun (a: Player list) -> Offensive(a)))
-                (pstr "}")
+                (pstr "}\n")
 
-// let field = pmany1 dteam |>> (fun (a) -> Grass(a))
+let newForce = pright (pstr "Force = ") (pstr "Home" <|> pstr "Away" <|> pstr "Flat") |>> (fun force -> match force with
+                                                                                                        | "Home" -> Home
+                                                                                                        | "Away" -> Away
+                                                                                                        | "Flat" -> Flat
+                                                                                                        | _ -> exit 1)
 
+let expr = dteam <|> oteam
 
-let expr = dteam <|> oteam 
+let field = pseq (pmany0 expr) (newForce) (fun (a, b) -> (a,b))
 
-let grammar = pleft (pmany0 expr) peof
+let grammar = pleft (field) peof
 
 let parse (input: string) : Field option =
-    let i = debug input
+    let i = prepare input
     match grammar i with
     | Success(ast, _) -> Some ast
     | Failure(_,_) -> None

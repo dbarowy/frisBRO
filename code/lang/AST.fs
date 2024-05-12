@@ -23,7 +23,7 @@ type Team =
 // type Plays = {prog: string}
 
 
-type Field = Team list 
+type Field = Team list * Force
 
 let FIELD_WIDTH = 1100
 let FIELD_LENGTH = 500
