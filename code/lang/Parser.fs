@@ -43,18 +43,34 @@ let oteam = pbetween
                 (pmany1 oplayer |>> (fun (a: Player list) -> Offensive(a)))
                 (pstr "}\n")
 
-let newForce = pright (pstr "Force = ") (pstr "Home" <|> pstr "Away" <|> pstr "Flat") |>> (fun force -> match force with
-                                                                                                        | "Home" -> Home
-                                                                                                        | "Away" -> Away
-                                                                                                        | "Flat" -> Flat
-                                                                                                        | _ -> exit 1)
+let newForce = pbetween (pstr "Force = ") (pstr "Home" <|> pstr "Away" <|> pstr "Flat") (pstr "\n") 
+                    |>> (fun force -> match force with
+                                                    | "Home" -> Home
+                                                    | "Away" -> Away
+                                                    | "Flat" -> Flat
+                                                    | _ -> exit 1)
 
 let expr = dteam <|> oteam
 
 let flag = (pstr "Defense = Automatic\n" |>> (fun auto -> Automatic)) <|>
             (pstr "Defense = Manual\n" |>> (fun auto -> Manual))
+//let flagforce = pseq flag newForce (fun (a, b) -> (a,b))
+
 let flagforce = pseq flag newForce (fun (a, b) -> (a,b))
-let field = pseq (pmany0 expr) (flagforce) (fun (a, (b, c)) -> (a,b,c))
+
+let firstrange = (pbetween (pstr "Play = if disc in range ") num (pstr " to "))
+
+let range = pseq firstrange num (fun(a, b) -> (a, b))
+
+
+
+let play = pseq range (pright (pstr " and force is ") newForce) (fun(a, b) -> {range = a; force = b})
+
+let flagforceplay = pseq flagforce (pmany0 play) (fun ((a, b), c) -> (a, b, c))
+
+//let field = pseq (pmany0 expr) (flagforce) (fun (a, (b, c)) -> (a,b,c))
+
+let field = pseq (pmany0 expr) (flagforceplay) (fun (a, (b, c, d)) -> (a,b,c,d))
 
 let grammar = pleft (field) peof
 
