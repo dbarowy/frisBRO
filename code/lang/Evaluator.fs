@@ -24,7 +24,7 @@ let evalPlays (plays: Play list) (offense: Team) force  =
             "play won't work"
 
     else 
-        "play won't work"
+        "N/A"
 
 
 let evalPlay force discPos = 
@@ -58,7 +58,7 @@ let evalplayer p t force =
     | Offense(a, _), Automatic -> // automatic person defense (not really offense)
         let x = a.x |> string
         let y = a.y + 15 |> string
-        " cx=\"" + x + "\" cy=\"" + y + "\" fill=\"red\" />"
+        "  <circle r=\"7\" cx=\"" + x + "\" cy=\"" + y + "\" fill=\"red\" />"
 
 let rec evalplayers team flag force = 
     match team with 
