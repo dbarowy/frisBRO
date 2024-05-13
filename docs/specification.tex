@@ -19,6 +19,7 @@
 \usepackage{enumitem}   
 \usepackage{fancyvrb}
 \usepackage{todonotes}
+\usepackage{array}
 
 % This will set LaTeX to look for figures in the same directory as the .tex file
 \graphicspath{.} % The dot means current directory.
@@ -75,52 +76,64 @@ Ultimate frisbee requires “reading” the field to figure out what play is bes
 \subsection*{Examples}
 
 \todo[inline]{
-    Example 1: Vertical Stack
-    ~\\
-    Field = {Standard}
-    ~\\
-    Offense = {(40,15), (40,35), (60,20), (65,20), (70,20), (75,20), (80,20)}
-    ~\\
-    Defense = {(41,16), (42,33), (60,19), (65,19), (70,19), (75,19), (80,19)}
-    ~\\
-    Disc = {Player:1}
-    ~\\
-    Force = {Home}
-    ~\\
-    Plays = {Library}
+    (Our syntax for our examples changed but for the most part, the underlying goal of the examples was accomplished)
     ~\\
     ~\\
-    Example 2: Zone
+    Example 1: Basic.txt
     ~\\
-    Field = {Standard}
+    Offense = {(120,390), true; (140,220), false; (160,220), false; (180,220), false; (200,220), false; (220,220), false; (240,220), false; }
     ~\\
-    Offense = {(40,0), (45,25), (35,15), (50,3), (70,35), (45,8), (45,20)}
+    Defense = {(120,370); (140,200); (160,200); (180,200); (200,200); (220,200); (240,200); }
     ~\\
-    Defense = {Zone}
+    Defense = Manual
     ~\\
-    Disc = {Player:1}
+    Force = Home
     ~\\
-    Force = {Home}
     ~\\
-    Plays = {Library}''
+   
+    ~\\
+    ~\\
+    Example 2: Automatic Person Defense (auto.txt)
+    ~\\
+    Offense = {(220,390), true; (220,220), false; (300,220), false; (320,220), false; (340,220), false; (360,220), false; (380,220), false; }
+    ~\\
+    Defense = Automatic
+    ~\\
+    Force = Away
+    ~\\
+    ~\\
+
     ~\\
     ~\\
     Example 3: Endzone
     ~\\
-    Field = {Standard}
+    Offense = {(220,390), true; (220,270), false; (220,140), false; (400,350), false; (400,275), false; (400,175), false; (400,100), false; }
     ~\\
-    Offense = {(80,25), (95,20), (80,15), (96,20), (97,20), (98,20), (99,20)}
+    Defense = Automatic
     ~\\
-    Defense = {(81,25), (96,20), (81,15), (97,20), (98,20), (99,20), (100,20)}
+    Force = Home
     ~\\
-    Disc = {Player:1}
+    Play = if disc in range 100 to 300 and force is Force = Home
     ~\\
-    Force = {Away}
     ~\\
-    Plays = (Squeeze: if (Player 1 has disc) AND (Player 1 is at (80,25)) AND (Force == Away) then “run squeeze”)
-    ~\\
+    
 
 }
+
+Example 1 Output: 
+\begin{center}
+    \includegraphics[width=.8\textwidth]{images/basic.png}
+\end{center}
+
+Example 2 Output: 
+\begin{center}
+    \includegraphics[width=.8\textwidth]{images/auto.png}
+\end{center}
+
+Example 3 Output: 
+    \begin{center}
+        \includegraphics[width=.8\textwidth]{images/addedplay.png}
+    \end{center}
 
 \subsection*{Language Concepts}
 
@@ -196,12 +209,21 @@ The programs in our language can optionally read in a file containing a team’s
 In its simplest state, the output of a program will be a frisbee field with the players and disc at the correct coordinates. For our final version of the language, the output of a program will be a picture of the field with a list of suggested plays, either from the library or from the user’s inputted plays.
 
 }
-Example Output: Suggested Plays: Angled Stack, Windmill
+
 
 \begin{center}
-    \includegraphics[width=.8\textwidth]{images/ExampleOutput.jpg}
+    \begin{tabular}{ | m{3cm} | m{3cm}| m{2cm} |  m{5cm} |} 
+      \hline
+      Syntax & Abstract Syntax & Prec./Assoc. & Meaning \\ 
+      \hline
+      ($<$n$>$,$<$n$>$) where n is an integer & Coordinate of {x: int; y: int} & n/a & x and y are integers. A coordinate is a primitive that represents where on the field a player is. \\ 
+      \hline
+      $<$coordinate$>$ , bool & Offense of Coordinate * HasDisc & n/a & An offensive player is made up of a coordinate and a boolean value of whether or not they have the disc. The player is drawn on the field in the appropriate location with/without the disc based on this information. \\ 
+      \hline
+      ($<$offense$>$, $<$offensive$>$) $|$ e & Offensive of Offense list & n/a & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offensive players. \\
+      \hline
+    \end{tabular}
 \end{center}
-
 
 
 % DO NOT DELETE ANYTHING BELOW THIS LINE
