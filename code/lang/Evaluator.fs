@@ -32,8 +32,8 @@ let evalplayer p t force =
         " cx=\"" + x + "\" cy=\"" + y + "\""
     | Offense(a, _), Automatic -> // automatic person defense (not really offense)
         let x = a.x |> string
-        let y = a.y |> string
-        " cx=\"" + x + "\" cy=\"" + y + "\""
+        let y = a.y + 15 |> string
+        " cx=\"" + x + "\" cy=\"" + y + "\" fill=\"red\" />"
 
 let rec evalplayers team flag force = 
     match team with 
@@ -51,7 +51,7 @@ let eval (field: Field) : string =
     let width = FIELD_WIDTH |> string
     let length = FIELD_LENGTH |> string
     let team1 = teams[0] // offense 
-    let offense = (evalplayers team1 flag force)
+    let offense = (evalplayers team1 Manual force)
 
     let defense = 
         if flag = Automatic then
