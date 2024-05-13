@@ -26,11 +26,10 @@ let coord = pseq firstcoord secondcoord (fun (a, b) -> {x = a; y = b})
 
 let disc = ((pstr ", true; ") |>> (fun a -> True)) <|> ((pstr ", false; ") |>> (fun b -> False)) //<!> "disc"
 
-let force = ((pstr ", home; ")|>> (fun a -> Home)) <|> 
-                    ((pstr ", away; ")|>> (fun a -> Away)) <|>
-                    ((pstr ", flat; ")|>> (fun a -> Flat)) <!> "force"
 
-let dplayer = pseq coord force (fun (a, force) -> Defense(a, force)) <!> "dplayer"
+let dplayer = pleft coord (pstr "; ") |>> (fun (a) -> Defense(a)) <!> "dplayer"
+
+let persondefense  = []
 
 let dteam = pbetween
                 (pstr "Defense = {")
@@ -52,7 +51,10 @@ let newForce = pright (pstr "Force = ") (pstr "Home" <|> pstr "Away" <|> pstr "F
 
 let expr = dteam <|> oteam
 
-let field = pseq (pmany0 expr) (newForce) (fun (a, b) -> (a,b))
+let flag = (pstr "Defense = Automatic\n" |>> (fun auto -> Automatic)) <|>
+            (pstr "Defense = Manual\n" |>> (fun auto -> Manual))
+let flagforce = pseq flag newForce (fun (a, b) -> (a,b))
+let field = pseq (pmany0 expr) (flagforce) (fun (a, (b, c)) -> (a,b,c))
 
 let grammar = pleft (field) peof
 

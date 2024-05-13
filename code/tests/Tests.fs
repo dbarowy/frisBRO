@@ -11,7 +11,7 @@ type TestClass () =
 
     [<TestMethod>]
     member this.OffenseDefenseList () =
-        let file = "/Users/skylaryarter/cs334/cs334-project-jmb13-soy1/code/tests/basic.txt"
+        let file = "../../../basic.txt"
         let input = IO.File.ReadAllText file
         let expected = "<svg width=\"1100\" height=\"500\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n" +
                         "  <rect width=\"1200\" height=\"400\" x=\"10\" y=\"10\" fill=\"green\" />\n"+
