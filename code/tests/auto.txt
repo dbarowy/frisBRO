@@ -1,3 +1,4 @@
 Offense = {(120,390), true; (140,220), false; (160,220), false; (180,220), false; (200,220), false; (220,220), false; (240,220), false; }
 Defense = Automatic
 Force = Home
+Play = if disc in range 35 to 70 and force is Force = Home

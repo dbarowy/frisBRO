@@ -16,6 +16,8 @@ type Force =
 | Away
 | Flat
 
+type Play = {range: int * int; force: Force}
+
 type Player = 
 //cordinate of where is; if has disc
 | Offense of Coordinate * HasDisc
@@ -28,7 +30,7 @@ type Team =
 // type Plays = {prog: string}
 
 
-type Field = Team list * Flag * Force 
+type Field = Team list * Flag * Force * Play list
 
 let FIELD_WIDTH = 1100
 let FIELD_LENGTH = 500
