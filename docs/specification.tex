@@ -147,43 +147,47 @@ Field Visualization:
 \subsection*{Formal Syntax}
 
 \todo[inline]{ 
-Current syntax:
-~\\
-    $<$expr$>$		::=$<$offense$>$$<$defense$>$
-    ~\\
-    $<$offense$>$	::= $<$oplayer$>$$<$offense$>$ $|$ $<$oplayer$>$
-    ~\\
-    $<$defense$>$	::= $<$dplayer$>$$<$defense$>$ $|$ $<$dplayer$>$
-    ~\\
+% Current syntax:
+% ~\\
+%     $<$expr$>$		::=$<$offense$>$$<$defense$>$
+%     ~\\
+%     $<$offense$>$	::= $<$oplayer$>$$<$offense$>$ $|$ $<$oplayer$>$
+%     ~\\
+%     $<$defense$>$	::= $<$dplayer$>$$<$defense$>$ $|$ $<$dplayer$>$
+%     ~\\
     
-    $<$oplayer$>$ 	::= $<$coordinate$>$$<$disc$>$
-    ~\\
-    $<$dplayer$>$	::= $<$coordinate$>$
-    ~\\
-    $<$disc$>$  	::= true $|$ false
-    ~\\
-    $<$coordinate$>$::= ($<$digit$>$,$<$digit$>$)
-    ~\\
-    $<$digit$>$		    ::= $<$digit$>$n $|$ n  where n is any positive integer
-~\\
-~\\
-Future syntax: 
+%     $<$oplayer$>$ 	::= $<$coordinate$>$$<$disc$>$
+%     ~\\
+%     $<$dplayer$>$	::= $<$coordinate$>$
+%     ~\\
+%     $<$disc$>$  	::= true $|$ false
+%     ~\\
+%     $<$coordinate$>$::= ($<$digit$>$,$<$digit$>$)
+%     ~\\
+%     $<$digit$>$		    ::= $<$digit$>$n $|$ n  where n is any positive integer
+% ~\\
+% ~\\
+Syntax: 
 ~\\
     $<$expr$>$		::= $<$field$>$$<$plays$>$ $|$ $<$field$>$
     ~\\
-    $<$field$>$		::=$<$offense$>$$<$defense$>$$<$force$>$
+    $<$field$>$		::=$<$teams$>$$<$flag$>$$<$force$>$
+    ~\\
+    $<$teams$>$     ::= $<$offense$>$ | $<$offense$>$$<$defense$>$
     ~\\
     $<$offense$>$	::= $<$oplayer$>$$<$offense$>$ $|$ $<$oplayer$>$
     ~\\
-    $<$defense$>$	::= $<$dplayer$>$$<$defense$>$ $|$ $<$dplayer$>$  $|$  zone $|$ person
+    $<$defense$>$	::= $<$dplayer$>$$<$defense$>$ $|$ $<$dplayer$>$  
     ~\\
-    $<$disc$>$  	::= true $|$ false
+    $<$hasdisc$>$  	::= true $|$ false
     ~\\
-    $<$oplayer$>$ 	::= $<$coordinate$>$$<$disc$>$
+    $<$oplayer$>$ 	::= $<$coordinate$>$$<$hasdisc$>$
     ~\\
     $<$dplayer$>$	::= $<$coordinate$>$
     ~\\
     $<$force$>$ 	::= home $|$ away $|$ flat
+    ~\\
+    $<$flag$>$      ::= automatic $|$ manual
     ~\\
     $<$plays$>$ 	::= $<$play$>$ $|$ $<$play$>$$<$plays$>$ $|$ Library
     ~\\
@@ -220,7 +224,7 @@ In its simplest state, the output of a program will be a frisbee field with the 
       \hline
       $<$coordinate$>$ , bool & Offense of Coordinate * HasDisc & n/a & An offensive player is made up of a coordinate and a boolean value of whether or not they have the disc. The player is drawn on the field in the appropriate location with/without the disc based on this information. \\ 
       \hline
-      ($<$offense$>$, $<$offensive$>$) $|$ e & Offensive of Offense list & n/a & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offensive players. \\
+      ($<$offense$>$, $<$offensive$>$) $|$ $<$offense$>$ & Offensive of Offense list & n/a & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offensive players. \\
       \hline
     \end{tabular}
 \end{center}
