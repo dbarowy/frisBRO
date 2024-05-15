@@ -7,7 +7,7 @@ let evalPlays (plays: Play list) (offense: Team) force  =
 
         let player = 
             match offense with 
-            | Offensive(a) -> a[0]
+            | Offensive(a) -> a[0] //filter function List.filter (a to bool)
             | Defensive(a) -> a[0]
 
         let coord = 
