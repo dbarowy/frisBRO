@@ -2,26 +2,59 @@ module Evaluator
 
 open AST
 
+
+let doesHaveDisc a = 
+    match a with 
+    | Offense(_, True) -> true
+    | Offense(_, False) -> false
+    | Defense(_) -> false
+
+
+let rec check (ast: Field) = 
+    let (teams, flag, force, plays) = ast
+    match teams with 
+    | x::xs -> 
+                match x with
+                | Offensive(ls) -> match (List.filter(doesHaveDisc) ls) with 
+                                                | [x] -> Some ast
+                                                | _ -> None
+                | Defensive(ls) -> check (xs, flag, force, plays)
+    | [] -> None
+
+let rec evalPlayList (plays: Play list) force coord = 
+    match plays with 
+    | x::xs ->
+        let low, high = x.range
+        let playforce = x.force
+        if ((playforce = force) && (coord.x > low) && (coord.x < high)) then 
+            "run entered play" + x.name + evalPlayList xs force coord
+        else 
+            "play" + x.name + "won't work" + evalPlayList xs force coord
+    | [] -> ""
+    
+
+
+
 let evalPlays (plays: Play list) (offense: Team) force  = 
     if plays.Length > 0 then
 
         let player = 
             match offense with 
-            | Offensive(a) -> a[0] //filter function List.filter (a to bool)
-            | Defensive(a) -> a[0]
+            | Offensive(a) -> List.filter(doesHaveDisc) a//filter function List.filter (a to bool)
+            | Defensive(a) -> List.filter(doesHaveDisc) a
 
         let coord = 
-            match player with 
+            match player[0] with 
             | Offense(a, b) -> a
             | Defense(a) -> a
 
-        
-        let low, high = plays[0].range
-        let playforce = plays[0].force
-        if ((playforce = force) && (coord.x > low) && (coord.x < high)) then 
-            "run entered play"
-        else 
-            "play won't work"
+        evalPlayList plays force coord
+        // let low, high = plays[0].range
+        // let playforce = plays[0].force
+        // if ((playforce = force) && (coord.x > low) && (coord.x < high)) then 
+        //     "run entered play"
+        // else 
+        //     "play won't work"
 
     else 
         "N/A"

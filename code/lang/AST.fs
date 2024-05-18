@@ -16,7 +16,7 @@ type Force =
 | Away
 | Flat
 
-type Play = {range: int * int; force: Force}
+type Play = {range: int * int; force: Force; name: string}
 
 type Player = 
 //cordinate of where is; if has disc

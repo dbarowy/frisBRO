@@ -15,9 +15,15 @@ let main args =
         match parse text with
         | Some ast ->
             //printfn "%A" ast
-            let svg = eval ast
-            printfn "%s" svg
-            0
+            let checkedast = check ast
+            match checkedast with
+            | Some ast' -> 
+                let svg = eval ast
+                printfn "%s" svg
+                0
+            | None -> 
+                printfn "Invalid program."
+                1
         | None ->
             printfn "Invalid program."
             1

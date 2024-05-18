@@ -62,9 +62,11 @@ let firstrange = (pbetween (pstr "Play = if disc in range ") num (pstr " to "))
 
 let range = pseq firstrange num (fun(a, b) -> (a, b))
 
+let name = pright (pstr " with name as ") (pmany1 pletter |>> (fun c -> (string c))) <!> "name"
 
+let forceName = pseq newForce name (fun a -> (a)) <!> "forcename"
 
-let play = pseq range (pright (pstr " and force is ") newForce) (fun(a, b) -> {range = a; force = b})
+let play = pseq range (pright (pstr " and force is ") forceName) (fun(a, (b, c)) -> {range = a; force = b; name = c})
 
 let flagforceplay = pseq flagforce (pmany0 play) (fun ((a, b), c) -> (a, b, c))
 

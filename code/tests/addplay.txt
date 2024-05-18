@@ -2,3 +2,4 @@ Offense = {(220,390), true; (220,270), false; (220,140), false; (400,350), false
 Defense = Automatic
 Force = Home
 Play = if disc in range 100 to 300 and force is Force = Home
+ with name as test
