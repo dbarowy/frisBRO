@@ -62,7 +62,7 @@ let firstrange = (pbetween (pstr "Play = if disc in range ") num (pstr " to "))
 
 let range = pseq firstrange num (fun(a, b) -> (a, b))
 
-let name = pright (pstr " with name as ") (pmany1 pletter |>> (fun c -> (string c))) <!> "name"
+let name = pbetween (pstr " with name as ") (pmany1 pletter |>> stringify) (pstr "\n")<!> "name"
 
 let forceName = pseq newForce name (fun a -> (a)) <!> "forcename"
 

@@ -3,3 +3,5 @@ Defense = Automatic
 Force = Home
 Play = if disc in range 100 to 300 and force is Force = Home
  with name as test
+Play = if disc in range 50 to 60 and force is Force = Home
+ with name as secondtest

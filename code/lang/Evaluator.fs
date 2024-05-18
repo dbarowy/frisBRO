@@ -2,7 +2,6 @@ module Evaluator
 
 open AST
 
-
 let doesHaveDisc a = 
     match a with 
     | Offense(_, True) -> true
@@ -27,9 +26,9 @@ let rec evalPlayList (plays: Play list) force coord =
         let low, high = x.range
         let playforce = x.force
         if ((playforce = force) && (coord.x > low) && (coord.x < high)) then 
-            "run entered play" + x.name + evalPlayList xs force coord
+            " run: " + x.name + "; " + evalPlayList xs force coord
         else 
-            "play" + x.name + "won't work" + evalPlayList xs force coord
+            " play " + x.name + " won't work" + "; " + evalPlayList xs force coord
     | [] -> ""
     
 
@@ -49,12 +48,6 @@ let evalPlays (plays: Play list) (offense: Team) force  =
             | Defense(a) -> a
 
         evalPlayList plays force coord
-        // let low, high = plays[0].range
-        // let playforce = plays[0].force
-        // if ((playforce = force) && (coord.x > low) && (coord.x < high)) then 
-        //     "run entered play"
-        // else 
-        //     "play won't work"
 
     else 
         "N/A"
@@ -126,5 +119,5 @@ let eval (field: Field) : string =
     "  <line x1=\"210\" y1=\"10\" x2=\"210\" y2=\"410\" stroke=\"white\" stroke-width=\"2\"></line>" +
     "  <line x1=\"910\" y1=\"10\" x2=\"910\" y2=\"410\" stroke=\"white\" stroke-width=\"2\"></line>" +
     offense + defense +
-    "<text x=\"20\" y=\"480\" fill=\"black\"> User Input Play: " + (evalPlays plays team1 force) + "</text>" +
+    "<text x=\"20\" y=\"480\" fill=\"black\"> User Input Plays: " + (evalPlays plays team1 force) + "</text>" +
     "</svg>\n"
