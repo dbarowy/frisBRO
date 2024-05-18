@@ -191,7 +191,9 @@ Syntax:
     ~\\
     $<$plays$>$ 	::= $<$play$>$ $|$ $<$play$>$$<$plays$>$ $|$ Library
     ~\\
-    $<$play$>$ 		::= string 
+    $<$play$>$ 		::= if disc in range $<$digit$>$ to $<$digit$>$ and force is Force = $<$force$>$ with name as $<$playname$>$
+    ~\\
+    $<$playname$>$  ::= string
     ~\\
     $<$coordinate$>$::= ($<$digit$>$,$<$digit$>$)
     ~\\
@@ -216,15 +218,33 @@ In its simplest state, the output of a program will be a frisbee field with the 
 
 
 \begin{center}
-    \begin{tabular}{ | m{3cm} | m{3cm}| m{2cm} |  m{5cm} |} 
+    \begin{tabular}{ | m{5cm} | m{5cm}|  m{5cm} |} 
       \hline
-      Syntax & Abstract Syntax & Prec./Assoc. & Meaning \\ 
+      Syntax & Abstract Syntax & Meaning \\ 
       \hline
-      ($<$n$>$,$<$n$>$) where n is an integer & Coordinate of {x: int; y: int} & n/a & x and y are integers. A coordinate is a primitive that represents where on the field a player is. \\ 
+      $<$n$>$ & Digit of int & n is a primative integer stored using F integers \\
       \hline
-      $<$coordinate$>$ , bool & Offense of Coordinate * HasDisc & n/a & An offensive player is made up of a coordinate and a boolean value of whether or not they have the disc. The player is drawn on the field in the appropriate location with/without the disc based on this information. \\ 
+      ($<$n$>$,$<$n$>$) & Coordinate of {x: int; y: int} & x and y are integers. A coordinate is a primitive that represents where on the field a player is. \\ 
       \hline
-      ($<$offense$>$, $<$offensive$>$) $|$ $<$offense$>$ & Offensive of Offense list & n/a & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offensive players. \\
+      $<$coordinate$>$, $<$hasDisc$>$ & Offense of Coordinate * HasDisc & An offensive player is made up of a coordinate and a boolean value of whether or not they have the disc. The player is drawn on the field in the appropriate location with/without the disc based on this information. \\ 
+      \hline
+      $<$coordinate$>$ & Defense of Coordinate & A defensive player is made up of a coordinate. The player is drawn on the field in the appropriate location. \\ 
+      \hline
+      $<$coordinate$>$, $<$hasDisc$>$ $|$ $<$coordinate$>$ & Offense of Coordinate * HasDisc or Defense of Coordinate & A player is a way which to create a list of players\\
+      \hline
+      ($<$player$>$, $<$offensive$>$) $|$ $<$player$>$ & Offensive of Player list & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offensive players. \\
+      \hline
+      ($<$player$>$, $<$defensive$>$) $|$ $<$player$>$ & Defense of Player list & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offensive players. \\
+      \hline
+      True $|$ False & HasDisc of True or False & Determines if offensive player has a disc \\
+      \hline
+      Automatic $|$ Manual & Flag of Automatic or Manual & Determines if user put in their own defense or not \\
+      \hline
+      Home $|$ Away $|$ Flat & Force of Home or Away or Flat & Tells the program what the force is on the feild \\
+      \hline
+      if disc in range $<$n$>$ to $<$n$>$ and force = $<$force$>$ with name as $<$name$>$ & Play of (int * int) * Force * Name & User inputed play that allows the user to determine if they want to run a play based on a range and a force. \\
+      \hline
+      Offense = $<$Offensive$>$ Defense = $<$defensive$>$ Force = $<$force$>$ Play = $<$plays$>$ & Field of Team list * Flag * Force * Play list & The final combining form which collects all user input into a usable tuple \\
       \hline
     \end{tabular}
 \end{center}
