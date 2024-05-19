@@ -125,7 +125,7 @@ let eval (field: Field) : string =
     let offense = (evalplayers team1 Manual force)
 
     if teams.Length <> 2 && flag <> Automatic then
-        "Invalid Program"
+        "Invalid Program: please enter exactly two teams"
     
     else 
 

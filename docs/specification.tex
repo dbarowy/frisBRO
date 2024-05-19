@@ -90,6 +90,8 @@ We aim to create an easily readable, quick-to-type programming language so it ca
     \end{verbatim}
     ~\\
     Running "dotnet run basic.txt \textgreater \  basic.svg" produces an svg file with the image below as output
+    ~\\
+    Note: the Offense and Defense teams must be writen on one line but for the sake of formating this specification, they have been written on two. See the example file tests/basic.txt for further clarification.
     \begin{center}
         \includegraphics[width=.8\textwidth]{images/basic.png}
     \end{center}
@@ -129,39 +131,19 @@ We aim to create an easily readable, quick-to-type programming language so it ca
 
 \subsection*{Language Concepts}
 
-Programs in frisBRO contain a field, a force, a defense type, and optionally, a list of plays. A field is made up of teams, which are lists of players. Players are made up of coordinates, and for offense, a string of true or false that tracks whether or not the player has the disc. The force is a string that can be one of three options (Home, Away, or Flat) and aids in the calling of plays. The defense is a string that can be Manual or Automatic, depending on how the user intends to populate the defense. The plays are input by the user as a string containing a range, a force, and a name.
+Programs in frisBRO contain a field, a force, a defense type, and optionally, a list of plays. A field is made up of teams, which are lists of players. As frisbee is played with two teams, an offense and a defense, the list of teams will be of length 2. Players are made up of coordinates, and for offense, a boolean of true or false that tracks whether or not the player has the disc. The force is of type Force that can be one of three options (Home, Away, or Flat) and aids in the calling of plays. The defense is a string that can be Manual or Automatic, depending on how the user intends to populate the defense. If manual is chosen, the user must before define where they want the defensive players to be. The plays are input by the user containing a range of integers, a force, and a name.
 ~\\
 ~\\
-The primitives in our language are integers, coordinates, and strings, which are combined into players, teams, and the field. In order to understand our program, users should have a good grasp of the game of ultimate - they need to be able to identify the force and estimate where on the field players are. Additionally, in order to input plays, the user should understand when a certain play should be run (e.g., run endzone if within 10 yards of the endzone, run color if on the sideline and force is home, etc).
+The primitives in our language are integers, force, flag, and strings, which are combined into coordinates, players, teams, and the field. In order to understand our program, users should have a good grasp of the game of ultimate - they need to be able to identify the force and estimate where on the field players are. Additionally, in order to input plays, the user should understand when a certain play should be run (e.g., run endzone if within 10 yards of the endzone, run color if on the sideline and force is home, etc).
+~\\
 ~\\
 Field Visualization: 
+~\\
 \begin{center}
     \includegraphics[width=.5\textwidth]{images/FieldVisualization.jpg}
 \end{center}
 
 \subsection*{Formal Syntax}
-
-
-% Current syntax:
-% ~\\
-%     $<$expr$>$		::=$<$offense$>$$<$defense$>$
-%     ~\\
-%     $<$offense$>$	::= $<$oplayer$>$$<$offense$>$ $|$ $<$oplayer$>$
-%     ~\\
-%     $<$defense$>$	::= $<$dplayer$>$$<$defense$>$ $|$ $<$dplayer$>$
-%     ~\\
-    
-%     $<$oplayer$>$ 	::= $<$coordinate$>$$<$disc$>$
-%     ~\\
-%     $<$dplayer$>$	::= $<$coordinate$>$
-%     ~\\
-%     $<$disc$>$  	::= true $|$ false
-%     ~\\
-%     $<$coordinate$>$::= ($<$digit$>$,$<$digit$>$)
-%     ~\\
-%     $<$digit$>$		    ::= $<$digit$>$n $|$ n  where n is any positive integer
-% ~\\
-% ~\\
 
 ~\\
     $<$expr$>$		::= $<$field$>$$<$plays$>$ $|$ $<$field$>$
@@ -217,7 +199,9 @@ Field Visualization:
       \hline
       ($<$player$>$, $<$defensive$>$) $|$ $<$player$>$ & Defensive of Player list & Defensive (which symbolizes an defensive team) is a list of defensive players. This is a combining form of defense players. \\
       \hline
-      True $|$ False & HasDisc of True or False & A boolean primative which determines if an offense player has a disc. \\
+      $<$offensive$>$$<$offensive$>$ & Teams of Player list & A combining form of two player lists, one offensive and one defensive. This list should only have two elements. \\
+      \hline
+      True $|$ False & HasDisc of true or false & A boolean primative which determines if an offense player has a disc. \\
       \hline
       Automatic $|$ Manual & Flag of Automatic or Manual & A primative which determines if user put in their own defense or automatically populated it. \\
       \hline
@@ -225,7 +209,7 @@ Field Visualization:
       \hline
       if disc in range $<$n$>$ to $<$n$>$ and force = $<$force$>$ with name as $<$string$>$ & Play of (int * int) * Force * Name & A combining form which combines the users inputted play based on a range and a force into a Play type. \\
       \hline
-      Offense = $<$offensive$>$ Defense = $<$defensive$>$ $|$ $<$flag$>$ Force = $<$force$>$ Play = $<$plays$>$ & Field of Team list * Flag * Force * Play list & The final combining form which collects all user input into a usable tuple \\
+      Offense = $<$offensive$>$ Defense = $<$defensive$>$ Defense = $<$flag$>$ Force = $<$force$>$ Play = $<$plays$>$ & Field of Team list * Flag * Force * Play list & The final combining form which collects all user input into a usable tuple \\
       \hline
     \end{tabular}
 \end{center}
