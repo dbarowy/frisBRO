@@ -86,16 +86,36 @@ let evalplayer p t force =
         let y = a.y + 15 |> string
         "  <circle r=\"7\" cx=\"" + x + "\" cy=\"" + y + "\" fill=\"red\" />"
 
+let coorCheck player = 
+   match player with
+   | Offense(c,_) -> if c.x < 10 || c.x > 1210 || c.y < 10 || c.y > 410 then
+                                    false
+                                  else 
+                                    true
+   | Defense(c) -> if c.x < 10 || c.x > 1210 || c.y < 10 || c.y > 410 then
+                                    false
+                                  else 
+                                    true
+
 let rec evalplayers team flag force = 
     match team with 
     | Offensive(ol) ->
         match ol with 
         | [] -> ""
-        | o::ol -> (evalplayer o flag force) + (evalplayers(Offensive(ol)) flag force)
+        | o::ol -> if coorCheck o then
+                        (evalplayer o flag force) + (evalplayers(Offensive(ol)) flag force)
+                   else 
+                        printfn "Offensive Player out of bounds"
+                        exit 1
     | Defensive(dl) ->
         match dl with 
         | [] -> ""
-        | d::dl -> (evalplayer d flag force) + (evalplayers(Defensive(dl)) flag force) 
+        | d::dl -> if coorCheck d then
+                        (evalplayer d flag force) + (evalplayers(Defensive(dl)) flag force) 
+                   else 
+                        printfn "Defensive Player out of bounds"
+                        exit 1
+
 
 let eval (field: Field) : string =
     let (teams, flag, force, plays) = field
