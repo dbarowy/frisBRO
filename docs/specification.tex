@@ -222,7 +222,7 @@ In its simplest state, the output of a program will be a frisbee field with the 
       \hline
       Syntax & Abstract Syntax & Meaning \\ 
       \hline
-      $<$n$>$ & Digit of int & n is a primative integer stored using F integers \\
+      $<$n$>$ & Digit of int & n is a primative integer stored using F\# integers \\
       \hline
       ($<$n$>$,$<$n$>$) & Coordinate of {x: int; y: int} & x and y are integers. A coordinate is a primitive that represents where on the field a player is. \\ 
       \hline
@@ -230,7 +230,7 @@ In its simplest state, the output of a program will be a frisbee field with the 
       \hline
       $<$coordinate$>$ & Defense of Coordinate & A defensive player is made up of a coordinate. The player is drawn on the field in the appropriate location. \\ 
       \hline
-      $<$coordinate$>$, $<$hasDisc$>$ $|$ $<$coordinate$>$ & Offense of Coordinate * HasDisc or Defense of Coordinate & A player is a way which to create a list of players\\
+      $<$coordinate$>$, $<$hasDisc$>$ $|$ $<$coordinate$>$ & Offense of Coordinate * HasDisc or Defense of Coordinate & A player is either on Offense or Defense. Players are used to create Teams which are a list of players\\
       \hline
       ($<$player$>$, $<$offensive$>$) $|$ $<$player$>$ & Offensive of Player list & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offensive players. \\
       \hline
@@ -251,7 +251,12 @@ In its simplest state, the output of a program will be a frisbee field with the 
 
 \subsection*{Remaining Work}
 
-Arrows on field more detail in plays
+While we believe that this language would help ultimate frisbee players in this current
+itteration some improvements could be made to increase functionality. First of all arrows which 
+point to where players should run could be added to the out put such that the user and their team
+would be able to clearly see how running the suggesested play would end up. Secondly,
+the language could be updated to allow for more detail in the user entered plays. For example, 
+the user could specify where the disc is on the field horizontally, not just vertically. 
 
 % DO NOT DELETE ANYTHING BELOW THIS LINE
 \end{document}
