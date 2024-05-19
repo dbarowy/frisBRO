@@ -63,81 +63,72 @@
 
 \subsection*{Introduction}
 
-\todo[inline]{This language helps a user decide what ultimate frisbee play to call in a given situation. When you are in the heat of the game, it can be hard to figure out what play to call. No longer! This programming language will help you decide what plays to call at any given moment based on where the players, disc, and the defensive force are. 
+In the middle of an ultimate frisbee game, there are countless split-second decisions to make based on a wide variety of factors. It can be stressful and confusing for coaches and players alike. No longer! frisBRO helps a user decide what ultimate frisbee play to call in a given situation based on where the players, disc, and the defensive force are. 
 ~\\
 ~\\
-Ultimate frisbee requires “reading” the field to figure out what play is best to call and this reading of the field requires evaluating multiple parameters. A language that allows the user to read the field more easily and without human emotion and bias swaying the result would allow more appropriate plays to be called. Many of the evaluations being made by the players or coaches when choosing a play are quantitative (ie. where are the players and disc on the field, which way is the defense forcing). These quantitative parameters fit well within the scope of a programming language and can be compared better by a computer than a person standing on the field with a skewed perspective.
-}
+Ultimate frisbee requires “reading” the field to figure out what play is best to call. This reading of the field requires evaluating multiple parameters. A language that allows the user to read the field more easily and without human emotion and bias swaying the result would allow more appropriate plays to be called. Many of the evaluations being made by the players or coaches when choosing a play are quantitative (e.g. where are the players and disc on the field, which way is the defense forcing). These quantitative parameters fit well within the scope of a programming language and can be compared better by a computer than a person standing on the field with a skewed perspective.
+
 
 \subsection*{Design Principles}
 
-\todo[inline]{We aim to create an easily readable, quick-to-type programming language so it can be used by frisbee coaches and players, who may not be familiar with general programming practices. Therefore, we prioritize simplicity in the syntax of our language so that it is easy to learn and to read. We do not want to overcomplicate the language by adding too many elements or rules, as that would hinder our user base. The language need not be object-oriented or follow a complex model as it is fairly basic, which allows for the easy-to-learn syntax.}
+We aim to create an easily readable, quick-to-type programming language so it can be used by frisbee coaches and players, who may not be familiar with general programming practices. Therefore, we prioritize simplicity in the syntax of our language so that it is easy to learn and to read. We do not want to overcomplicate the language by adding too many elements or rules, as that would hinder our user base. The language need not be object-oriented or follow a complex model as it is fairly basic, which allows for the easy-to-learn syntax.
 
 \subsection*{Examples}
-
-
-    (Our syntax for our examples changed but for the most part, the underlying goal of the examples was accomplished)
+    The program takes in a txt file and returns an svg file.
+    
     ~\\
     ~\\
-    Example 1: Basic.txt
+    Example 1: Basic use (basic.txt)
     ~\\
-    Offense = \{(120,390), true; (140,220), false; (160,220), false; (180,220), false; (200,220), false; (220,220), false; (240,220), false; \}
-    ~\\
-    Defense = \{(120,370); (140,200); (160,200); (180,200); (200,200); (220,200); (240,200); \}
-    ~\\
+    \begin{verbatim}
+    Offense = {(120,390), true; (140,220), false; (160,220), false; (180,220), false; (200,220), false; (220,220), false; (240,220), false; }
+    Defense = {(120,370); (140,200); (160,200); (180,200); (200,200); (220,200); (240,200); }
     Defense = Manual
-    ~\\
     Force = Home
+    \end{verbatim}
     ~\\
-    ~\\
+    Running "dotnet run basic.txt \textgreater \  basic.svg" produces an svg file with the image below as output
+    \begin{center}
+        \includegraphics[width=.8\textwidth]{images/basic.png}
+    \end{center}
    
     ~\\
     ~\\
     Example 2: Automatic Person Defense (auto.txt)
     ~\\
-    Offense = \{(220,390), true; (220,220), false; (300,220), false; (320,220), false; (340,220), false; (360,220), false; (380,220), false; \}
-    ~\\
+    \begin{verbatim}
+    Offense = {(220,390), true; (220,220), false; (300,220), false; (320,220), false; (340,220), false; (360,220), false; (380,220), false; }
     Defense = Automatic
-    ~\\
     Force = Away
+    \end{verbatim}
     ~\\
-    ~\\
+    Running "dotnet run auto.txt \textgreater \  auto.svg" produces an svg file with the image below as output
+    \begin{center}
+        \includegraphics[width=.8\textwidth]{images/auto.png}
+    \end{center}
 
     ~\\
     ~\\
-    Example 3: Endzone
+    Example 3: Adding plays (addplay.txt)
     ~\\
-    Offense = \{(220,390), true; (220,270), false; (220,140), false; (400,350), false; (400,275), false; (400,175), false; (400,100), false; \}
-    ~\\
+    \begin{verbatim}
+    Offense = {(220,390), true; (220,270), false; (220,140), false; (400,350), false; (400,275), false; (400,175), false; (400,100), false; }
     Defense = Automatic
-    ~\\
     Force = Home
-    ~\\
     Play = if disc in range 100 to 300 and force is Force = Home
+    \end{verbatim}
     ~\\
-    ~\\
-    
-
-
-
-Example 1 Output: 
-\begin{center}
-    \includegraphics[width=.8\textwidth]{images/basic.png}
-\end{center}
-
-Example 2 Output: 
-\begin{center}
-    \includegraphics[width=.8\textwidth]{images/auto.png}
-\end{center}
-
-Example 3 Output: 
+    Running "dotnet run addplay.txt \textgreater \  addplay.svg" produces an svg file with the image below as output
     \begin{center}
         \includegraphics[width=.8\textwidth]{images/addedplay.png}
     \end{center}
 
 \subsection*{Language Concepts}
 
-\todo[inline]{A user needs to understand that each offensive and defensive player is a unique object which is essentially just a coordinate. The primitives of this language are coordinates which ultimately determine where the players and the disc are. The multiple players are combined into a team. Other primitives are the defensive force which is basically just a string. Adding the force and where the disc is allows the user to fine-tune what play they should call. The field is a combining form which takes all the teams, disc, and force and places them in the correct position. Additionally, the user should understand how the field is set up and how to visualize it.}
+Programs in frisBRO contain a field, a force, a defense type, and optionally, a list of plays. A field is made up of teams, which are lists of players. Players are made up of coordinates, and for offense, a string of true or false that tracks whether or not the player has the disc. The force is a string that can be one of three options (Home, Away, or Flat) and aids in the calling of plays. The defense is a string that can be Manual or Automatic, depending on how the user intends to populate the defense. The plays are input by the user as a string containing a range, a force, and a name.
+~\\
+~\\
+The primitives in our language are integers, coordinates, and strings, which are combined into players, teams, and the field. In order to understand our program, users should have a good grasp of the game of ultimate - they need to be able to identify the force and estimate where on the field players are. Additionally, in order to input plays, the user should understand when a certain play should be run (e.g., run endzone if within 10 yards of the endzone, run color if on the sideline and force is home, etc).
 
 Field Visualization: 
 \begin{center}
@@ -146,7 +137,7 @@ Field Visualization:
 
 \subsection*{Formal Syntax}
 
-\todo[inline]{ 
+
 % Current syntax:
 % ~\\
 %     $<$expr$>$		::=$<$offense$>$$<$defense$>$
@@ -167,17 +158,17 @@ Field Visualization:
 %     $<$digit$>$		    ::= $<$digit$>$n $|$ n  where n is any positive integer
 % ~\\
 % ~\\
-Syntax: 
+
 ~\\
     $<$expr$>$		::= $<$field$>$$<$plays$>$ $|$ $<$field$>$
     ~\\
     $<$field$>$		::=$<$teams$>$$<$flag$>$$<$force$>$
     ~\\
-    $<$teams$>$     ::= $<$offense$>$ | $<$offense$>$$<$defense$>$
+    $<$teams$>$     ::= $<$offensive$>$ $|$ $<$offensive$>$$<$defensive$>$
     ~\\
-    $<$offense$>$	::= $<$oplayer$>$$<$offense$>$ $|$ $<$oplayer$>$
+    $<$offensive$>$	::= $<$oplayer$>$$<$offensive$>$ $|$ $<$oplayer$>$
     ~\\
-    $<$defense$>$	::= $<$dplayer$>$$<$defense$>$ $|$ $<$dplayer$>$  
+    $<$defensive$>$	::= $<$dplayer$>$$<$defensive$>$ $|$ $<$dplayer$>$  
     ~\\
     $<$hasdisc$>$  	::= true $|$ false
     ~\\
@@ -199,23 +190,9 @@ Syntax:
     ~\\
     $<$digit$>$		    ::= $<$digit$>$n $|$ n  where n is any positive integer
 
-}
+
 
 \subsection*{Semantics}
-
-\todo[inline]{The primitives in this language are coordinates, defense types, booleans, and the force. Plays are programs passed in or accessed in a Library as strings.
-~\\
-~\\
-The combining forms in this language are players, which are made from coordinates and booleans determining if they have the disc; teams, which are made of lists of players; and a field, which is made from combining teams and the force on the field.
-~\\
-~\\
-The programs in our language can optionally read in a file containing a team’s plays. The plays would be written in with booleans to indicate when to use them (e.g., “if force=home, then angled stack”). If the user does not provide a file of plays, the program will use the default plays that we provide.
-~\\
-~\\
-In its simplest state, the output of a program will be a frisbee field with the players and disc at the correct coordinates. For our final version of the language, the output of a program will be a picture of the field with a list of suggested plays, either from the library or from the user’s inputted plays.
-
-}
-
 
 \begin{center}
     \begin{tabular}{ | m{5cm} | m{5cm}|  m{5cm} |} 
@@ -232,19 +209,19 @@ In its simplest state, the output of a program will be a frisbee field with the 
       \hline
       $<$coordinate$>$, $<$hasDisc$>$ $|$ $<$coordinate$>$ & Offense of Coordinate * HasDisc or Defense of Coordinate & A player is either on Offense or Defense. Players are used to create Teams which are a list of players\\
       \hline
-      ($<$player$>$, $<$offensive$>$) $|$ $<$player$>$ & Offensive of Player list & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offensive players. \\
+      ($<$player$>$, $<$offensive$>$) $|$ $<$player$>$ & Offensive of Player list & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offense players. \\
       \hline
-      ($<$player$>$, $<$defensive$>$) $|$ $<$player$>$ & Defense of Player list & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offensive players. \\
+      ($<$player$>$, $<$defensive$>$) $|$ $<$player$>$ & Defensive of Player list & Defensive (which symbolizes an defensive team) is a list of defensive players. This is a combining form of defense players. \\
       \hline
-      True $|$ False & HasDisc of True or False & Determines if offensive player has a disc \\
+      True $|$ False & HasDisc of True or False & Determines if offense player has a disc \\
       \hline
       Automatic $|$ Manual & Flag of Automatic or Manual & Determines if user put in their own defense or not \\
       \hline
-      Home $|$ Away $|$ Flat & Force of Home or Away or Flat & Tells the program what the force is on the feild \\
+      Home $|$ Away $|$ Flat & Force of Home or Away or Flat & Tells the program what the force is on the field \\
       \hline
-      if disc in range $<$n$>$ to $<$n$>$ and force = $<$force$>$ with name as $<$name$>$ & Play of (int * int) * Force * Name & User inputed play that allows the user to determine if they want to run a play based on a range and a force. \\
+      if disc in range $<$n$>$ to $<$n$>$ and force = $<$force$>$ with name as $<$name$>$ & Play of (int * int) * Force * Name & User inputted play that allows the user to determine if they want to run a play based on a range and a force. \\
       \hline
-      Offense = $<$Offensive$>$ Defense = $<$defensive$>$ Force = $<$force$>$ Play = $<$plays$>$ & Field of Team list * Flag * Force * Play list & The final combining form which collects all user input into a usable tuple \\
+      Offense = $<$offensive$>$ Defense = $<$defensive$>$ $|$ $<$flag$>$ Force = $<$force$>$ Play = $<$plays$>$ & Field of Team list * Flag * Force * Play list & The final combining form which collects all user input into a usable tuple \\
       \hline
     \end{tabular}
 \end{center}
@@ -252,11 +229,8 @@ In its simplest state, the output of a program will be a frisbee field with the 
 \subsection*{Remaining Work}
 
 While we believe that this language would help ultimate frisbee players in this current
-itteration some improvements could be made to increase functionality. First of all arrows which 
-point to where players should run could be added to the out put such that the user and their team
-would be able to clearly see how running the suggesested play would end up. Secondly,
-the language could be updated to allow for more detail in the user entered plays. For example, 
-the user could specify where the disc is on the field horizontally, not just vertically. 
+iteration, some improvements could be made to increase functionality. We would like to add arrows that represent where each player should move in the recommended play. This would allow the user to more clearly visualize the suggested play. Additionally, we would like to give the user the ability to add more detailed conditions for the plays they enter. For example, 
+the user could specify where the disc is on the field vertically, not just horizontally. Currently, when the user asks for defense to be placed automatically, they are placed in a person defense. We'd like to add automatic zone defense as an option in the future. Finally, we would like to build more plays into the language as a baseline, so the recommendations are more helpful and specific.
 
 % DO NOT DELETE ANYTHING BELOW THIS LINE
 \end{document}
