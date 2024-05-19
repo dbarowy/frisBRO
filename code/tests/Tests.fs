@@ -34,7 +34,7 @@ type TestClass () =
                         "  <circle r=\"7\" cx=\"200\" cy=\"200\" fill=\"red\" />"+
                         "  <circle r=\"7\" cx=\"220\" cy=\"200\" fill=\"red\" />"+
                         "  <circle r=\"7\" cx=\"240\" cy=\"200\" fill=\"red\" />"+
-                        "<text x=\"20\" y=\"480\" fill=\"black\"> User Input Play: N/A</text></svg>\n"
+                        "<text x=\"20\" y=\"480\" fill=\"black\"> User Input Plays: N/A</text></svg>\n"
         let resultOfParse = parse input
         match resultOfParse with
         | Some ast -> 
@@ -67,7 +67,7 @@ type TestClass () =
                         "  <circle r=\"7\" cx=\"340\" cy=\"235\" fill=\"red\" />"+
                         "  <circle r=\"7\" cx=\"360\" cy=\"235\" fill=\"red\" />"+
                         "  <circle r=\"7\" cx=\"380\" cy=\"235\" fill=\"red\" />"+
-                        "<text x=\"20\" y=\"480\" fill=\"black\"> User Input Play: N/A</text></svg>\n"
+                        "<text x=\"20\" y=\"480\" fill=\"black\"> User Input Plays: N/A</text></svg>\n"
         let resultOfParse = parse input
         match resultOfParse with
         | Some ast -> 
@@ -100,7 +100,7 @@ type TestClass () =
                         "  <circle r=\"7\" cx=\"400\" cy=\"290\" fill=\"red\" />"+
                         "  <circle r=\"7\" cx=\"400\" cy=\"190\" fill=\"red\" />"+
                         "  <circle r=\"7\" cx=\"400\" cy=\"115\" fill=\"red\" />"+
-                        "<text x=\"20\" y=\"480\" fill=\"black\"> User Input Play: run entered play</text></svg>\n"
+                        "<text x=\"20\" y=\"480\" fill=\"black\"> User Input Plays:  run: test;  play secondtest won't work; </text></svg>\n"
         let resultOfParse = parse input
         match resultOfParse with
         | Some ast -> 
@@ -111,7 +111,7 @@ type TestClass () =
 
     [<TestMethod>]
     member this.Parse () =
-        let input = "Play = if disc in range 3 to 100 and force is Force = Away\n"
+        let input = "Play = if disc in range 50 to 60 and force is Force = Home\n with name as test\n"
         let prepped = prepare input
         match (play prepped) with
         | Success(_,_) -> Assert.IsTrue true 
