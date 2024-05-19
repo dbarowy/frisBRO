@@ -53,7 +53,7 @@
 
 % Edit below as instructed
 
-\title{frisBRO Language Specification} % Replace SnappyLanguageName with your project's name
+\title{frisBetterRunningOffense (frisBRO) Language Specification} % Replace SnappyLanguageName with your project's name
 
 \author{Skylar Yarter \and Jocelyn Bliven} % Replace these with real partner names.
 
@@ -71,7 +71,7 @@ Ultimate frisbee requires “reading” the field to figure out what play is bes
 
 \subsection*{Design Principles}
 
-We aim to create an easily readable, quick-to-type programming language so it can be used by frisbee coaches and players, who may not be familiar with general programming practices. Therefore, we prioritize simplicity in the syntax of our language so that it is easy to learn and to read. We do not want to overcomplicate the language by adding too many elements or rules, as that would hinder our user base. The language need not be object-oriented or follow a complex model as it is fairly basic, which allows for the easy-to-learn syntax.
+We aim to create an easily readable, quick-to-type programming language so it can be used by frisbee coaches and players, who may not be familiar with general programming practices. Therefore, we prioritize simplicity in the syntax of our language so that it is easy to learn and to read. We do not want to overcomplicate the language by adding too many elements or rules, as that would hinder our user base. The language need not be object-oriented or follow a complex model as it is fairly basic, which allows for the easy-to-learn syntax. We also wanted to make the language quickly usable as this is designed to be used in the middle of a frisbee game.  
 
 \subsection*{Examples}
     The program takes in a txt file and returns an svg file.
@@ -81,8 +81,10 @@ We aim to create an easily readable, quick-to-type programming language so it ca
     Example 1: Basic use (basic.txt)
     ~\\
     \begin{verbatim}
-    Offense = {(120,390), true; (140,220), false; (160,220), false; (180,220), false; (200,220), false; (220,220), false; (240,220), false; }
-    Defense = {(120,370); (140,200); (160,200); (180,200); (200,200); (220,200); (240,200); }
+    Offense = {(120,390), true; (140,220), false; (160,220), false; (180,220), false; 
+                (200,220), false; (220,220), false; (240,220), false; }
+    Defense = {(120,370); (140,200); (160,200); (180,200); (200,200); (220,200); 
+                (240,200); }
     Defense = Manual
     Force = Home
     \end{verbatim}
@@ -97,7 +99,8 @@ We aim to create an easily readable, quick-to-type programming language so it ca
     Example 2: Automatic Person Defense (auto.txt)
     ~\\
     \begin{verbatim}
-    Offense = {(220,390), true; (220,220), false; (300,220), false; (320,220), false; (340,220), false; (360,220), false; (380,220), false; }
+    Offense = {(220,390), true; (220,220), false; (300,220), false; (320,220), false; 
+                (340,220), false; (360,220), false; (380,220), false; }
     Defense = Automatic
     Force = Away
     \end{verbatim}
@@ -112,7 +115,8 @@ We aim to create an easily readable, quick-to-type programming language so it ca
     Example 3: Adding plays (addplay.txt)
     ~\\
     \begin{verbatim}
-    Offense = {(220,390), true; (220,270), false; (220,140), false; (400,350), false; (400,275), false; (400,175), false; (400,100), false; }
+    Offense = {(220,390), true; (220,270), false; (220,140), false; (400,350), false; 
+                (400,275), false; (400,175), false; (400,100), false; }
     Defense = Automatic
     Force = Home
     Play = if disc in range 100 to 300 and force is Force = Home
@@ -129,7 +133,7 @@ Programs in frisBRO contain a field, a force, a defense type, and optionally, a 
 ~\\
 ~\\
 The primitives in our language are integers, coordinates, and strings, which are combined into players, teams, and the field. In order to understand our program, users should have a good grasp of the game of ultimate - they need to be able to identify the force and estimate where on the field players are. Additionally, in order to input plays, the user should understand when a certain play should be run (e.g., run endzone if within 10 yards of the endzone, run color if on the sideline and force is home, etc).
-
+~\\
 Field Visualization: 
 \begin{center}
     \includegraphics[width=.5\textwidth]{images/FieldVisualization.jpg}
@@ -164,7 +168,7 @@ Field Visualization:
     ~\\
     $<$field$>$		::=$<$teams$>$$<$flag$>$$<$force$>$
     ~\\
-    $<$teams$>$     ::= $<$offensive$>$ $|$ $<$offensive$>$$<$defensive$>$
+    $<$teams$>$     ::= $<$offensive$>$$<$defensive$>$
     ~\\
     $<$offensive$>$	::= $<$oplayer$>$$<$offensive$>$ $|$ $<$oplayer$>$
     ~\\
@@ -207,19 +211,19 @@ Field Visualization:
       \hline
       $<$coordinate$>$ & Defense of Coordinate & A defensive player is made up of a coordinate. The player is drawn on the field in the appropriate location. \\ 
       \hline
-      $<$coordinate$>$, $<$hasDisc$>$ $|$ $<$coordinate$>$ & Offense of Coordinate * HasDisc or Defense of Coordinate & A player is either on Offense or Defense. Players are used to create Teams which are a list of players\\
+      $<$offense$>$ $|$ $<$defense$>$ & Player of Offense or Defense & A player is either on Offense or Defense. Players are used to create Teams which are a list of players\\
       \hline
       ($<$player$>$, $<$offensive$>$) $|$ $<$player$>$ & Offensive of Player list & Offensive (which symbolizes an offensive team) is a list of offensive players. This is a combining form of offense players. \\
       \hline
       ($<$player$>$, $<$defensive$>$) $|$ $<$player$>$ & Defensive of Player list & Defensive (which symbolizes an defensive team) is a list of defensive players. This is a combining form of defense players. \\
       \hline
-      True $|$ False & HasDisc of True or False & Determines if offense player has a disc \\
+      True $|$ False & HasDisc of True or False & A boolean primative which determines if an offense player has a disc. \\
       \hline
-      Automatic $|$ Manual & Flag of Automatic or Manual & Determines if user put in their own defense or not \\
+      Automatic $|$ Manual & Flag of Automatic or Manual & A primative which determines if user put in their own defense or automatically populated it. \\
       \hline
-      Home $|$ Away $|$ Flat & Force of Home or Away or Flat & Tells the program what the force is on the field \\
+      Home $|$ Away $|$ Flat & Force of Home or Away or Flat & A primative which tells the program what the force is on the field. \\
       \hline
-      if disc in range $<$n$>$ to $<$n$>$ and force = $<$force$>$ with name as $<$name$>$ & Play of (int * int) * Force * Name & User inputted play that allows the user to determine if they want to run a play based on a range and a force. \\
+      if disc in range $<$n$>$ to $<$n$>$ and force = $<$force$>$ with name as $<$string$>$ & Play of (int * int) * Force * Name & A combining form which combines the users inputted play based on a range and a force into a Play type. \\
       \hline
       Offense = $<$offensive$>$ Defense = $<$defensive$>$ $|$ $<$flag$>$ Force = $<$force$>$ Play = $<$plays$>$ & Field of Team list * Flag * Force * Play list & The final combining form which collects all user input into a usable tuple \\
       \hline

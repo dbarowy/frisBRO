@@ -124,20 +124,25 @@ let eval (field: Field) : string =
     let team1 = teams[0] // offense 
     let offense = (evalplayers team1 Manual force)
 
-    let defense = 
-        if flag = Automatic then
-            (evalplayers team1 flag force)
+    if teams.Length <> 2 && flag <> Automatic then
+        "Invalid Program"
+    
+    else 
 
-        else 
-            let team2 = teams[1]
-            (evalplayers team2 flag force)
+        let defense = 
+            if flag = Automatic then
+                (evalplayers team1 flag force)
 
-    "<svg width=\"" + width + "\" height=\"" + length + "\"" +
-    " xmlns=\"http://www.w3.org/2000/svg\"" +
-    " xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n" +
-    "  <rect width=\"1200\" height=\"400\" x=\"10\" y=\"10\" fill=\"green\" />\n" +
-    "  <line x1=\"210\" y1=\"10\" x2=\"210\" y2=\"410\" stroke=\"white\" stroke-width=\"2\"></line>" +
-    "  <line x1=\"910\" y1=\"10\" x2=\"910\" y2=\"410\" stroke=\"white\" stroke-width=\"2\"></line>" +
-    offense + defense +
-    "<text x=\"20\" y=\"480\" fill=\"black\"> User Input Plays: " + (evalPlays plays team1 force) + "</text>" +
-    "</svg>\n"
+            else 
+                let team2 = teams[1]
+                (evalplayers team2 flag force)
+
+        "<svg width=\"" + width + "\" height=\"" + length + "\"" +
+        " xmlns=\"http://www.w3.org/2000/svg\"" +
+        " xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n" +
+        "  <rect width=\"1200\" height=\"400\" x=\"10\" y=\"10\" fill=\"green\" />\n" +
+        "  <line x1=\"210\" y1=\"10\" x2=\"210\" y2=\"410\" stroke=\"white\" stroke-width=\"2\"></line>" +
+        "  <line x1=\"910\" y1=\"10\" x2=\"910\" y2=\"410\" stroke=\"white\" stroke-width=\"2\"></line>" +
+        offense + defense +
+        "<text x=\"20\" y=\"480\" fill=\"black\"> User Input Plays: " + (evalPlays plays team1 force) + "</text>" +
+        "</svg>\n"
