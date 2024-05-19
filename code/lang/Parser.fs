@@ -72,7 +72,7 @@ let flagforceplay = pseq flagforce (pmany0 play) (fun ((a, b), c) -> (a, b, c))
 
 //let field = pseq (pmany0 expr) (flagforce) (fun (a, (b, c)) -> (a,b,c))
 
-let field = pseq (pmany0 expr) (flagforceplay) (fun (a, (b, c, d)) -> (a,b,c,d))
+let field = pseq (pmany1 expr) (flagforceplay) (fun (a, (b, c, d)) -> (a,b,c,d))
 
 let grammar = pleft (field) peof
 
